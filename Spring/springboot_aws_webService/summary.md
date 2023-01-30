@@ -371,7 +371,7 @@ public class Application {
 
 #### 	2-1. 다음과 같이 domain 패키지를 만든다.
 
-<src="./img/3.2_domain패키지.png" style="zoom:50%;" />
+<img src="https://github.com/seulgi7/Book-Log/blob/2c4396d45d4c8a46fa82f87fdd99b1c94f5da18f/Spring/springboot_aws_webService/img/3.2_domain%E1%84%91%E1%85%A2%E1%84%8F%E1%85%B5%E1%84%8C%E1%85%B5.png" style="zoom:50%;" />
 
 - domain 패키지 : 도메인을 담을 패키지
 
@@ -574,7 +574,7 @@ public class Posts {
 
 Posts 클래스 생성이 끝났다면, Posts 클래스로 Database를 접근하게 해줄 JpaRepository를 생성함.
 
-<img src="./img/3.2_jpaReposiitoy생성.png" style="zoom:50%;" />
+<img src="https://github.com/seulgi7/Book-Log/blob/2c4396d45d4c8a46fa82f87fdd99b1c94f5da18f/Spring/springboot_aws_webService/img/3.2_jpaReposiitoy%E1%84%89%E1%85%A2%E1%86%BC%E1%84%89%E1%85%A5%E1%86%BC.png" style="zoom:50%;" />
 
 
 
