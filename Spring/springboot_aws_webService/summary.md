@@ -1,5 +1,4 @@
-# CHAPTER01. 인텔리제일 스프링 부 시작하기.
-
+# CHAPTER01. 인텔리제이 스프링 부트 시작하기.
 - 프로젝트 환경
   - Java : 8
   - Gradle : 4.10.2
@@ -130,7 +129,8 @@ public class Application {
 ### @ WebMvcTest
 
 - 여러 스프링 테스트 어노테이션 중, Web(Spring MVC)에 집중할 수 있는 어노테이션.
-- 선언할 경우 @Controller, @Controllerㅁ
+- 선언할 경우 @Controller, @ControllerAdvice 등을 사용하 수 있음.
+- 단, @Service, @Component, @Repository등은 사용할 수 없음.
 
 ### @Autowired
 
@@ -227,7 +227,7 @@ public class Application {
 
 - JSON 응답값을 필드별로 검증할 수 있는 메소드.
 
-- $를 기준으로 필드명을 명시한다. ex) name → $.name , amount → $.amount
+- '$'를 기준으로 필드명을 명시한다. ex) name → $.name , amount → $.amount
 
   
 
@@ -286,8 +286,8 @@ public class Application {
 
   - **인터페이스인 JPA**를 사용하기 위해서는 **구현체가 필요함**. ex)  Hibernate, EclipseLink 등
 
-  - **Spring에서 JPA**를 사용할 때는 이 **구현체들을 직접 다루진 않는다. **
-
+  - **Spring에서 JPA**를 사용할 때는 이 **구현체들을 직접 다루진 않는다.**
+  
     - 구현체들을 좀 더 쉽게 사용하고자 추상화시킨 **Spring Data JPA라는 모듈을 이용하여 JPA 기술을 다룬다.**
 
     - 이들의 관계를 보면 아래와 같다.
@@ -358,7 +358,7 @@ public class Application {
       compile('org.springframework.boot:spring-boot-starter-web')
       compile('org.projectlombok:lombok') //롬복 추가
       compile('org.springframwork.boot:spring-boot-starter-data-jpa')// 스프링 부트용 Spring Data Jpa 추상화 라이브러리.
-      complie('com.h2database:h2') // 인메모 관계형 데이터베이스
+      complie('com.h2database:h2') // 인메모리 관계형 데이터베이스
       testCompile('org.springframework.boot:spring-boot-starter-test') 
   }
   
@@ -371,7 +371,7 @@ public class Application {
 
 #### 	2-1. 다음과 같이 domain 패키지를 만든다.
 
-<img src="/Users/jangseulgi/Library/Application Support/typora-user-images/image-20230122140751026.png" alt="image-20230122140751026" style="zoom:50%;" />
+<src="./img/3.2_domain패키지.png" style="zoom:50%;" />
 
 - domain 패키지 : 도메인을 담을 패키지
 
@@ -417,7 +417,7 @@ public class Posts {
 
 >어노테이션 정렬 기준
 >
->- 필자는 어노테이셔 순서를 **주요 어노테이션을 클래스에 가깝게**둔다.
+>- 필자는 어노테이셔 순서를 **주요 어노테이션을 클래스에 가깝게**둔다.<br>
 >  ex) @Entity는 JPA의 어노테이션이며 필수 어노테이션이지만, @Getter와 @NoArgsConstructor는 롬복의 어노테이션이며 필수 어노테이션은 아니다. 그러므로 주요 어노테이션인 @Entity를 클래스에 가깝게 두고, 롬복 어노테이션을 그 위로 두었다. 
 >
 > ➣ 이후에 코틀린 등의 새 언어 전환으로 롬복이 더이상 필요 없을 경우 쉽게 삭제할 수 있다.
@@ -574,7 +574,7 @@ public class Posts {
 
 Posts 클래스 생성이 끝났다면, Posts 클래스로 Database를 접근하게 해줄 JpaRepository를 생성함.
 
-<img src="/Users/jangseulgi/Library/Application Support/typora-user-images/image-20230122175024751.png" alt="image-20230122175024751" style="zoom:50%;" />
+<img src="./img/3.2_jpaReposiitoy생성.png" style="zoom:50%;" />
 
 
 
