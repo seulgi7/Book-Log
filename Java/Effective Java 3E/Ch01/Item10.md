@@ -90,9 +90,9 @@
               if (o instanceof CaseInsensitiveString)
                 	//equalsIgnoreCase : 대소문자 구분없이 문자열 자체만으로 비교
                   return s.equalsIgnoreCase(
-                          ((CaseInsensitiveString) o).s);//true
+                          ((CaseInsensitiveString) o).s);
               if (o instanceof String)  
-                  return s.equalsIgnoreCase((String) o);//false --> 한 방향으로만 작동한다!
+                  return s.equalsIgnoreCase((String) o);// --> 한 방향으로만 작동한다!
               return false;
           }
       
