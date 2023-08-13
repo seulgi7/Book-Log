@@ -181,11 +181,8 @@ public final class Complex{
 ### 불변 클래스를 만드는 다른 방법
 
 - 상속을 막을 수 있는 또 다른 방법
-
-  - private 또는 package-private 생성자 + 정적 팩터리
-
-    ```java
-    /*코드 17-2 생성자 대신 정적 팩터리를 사용한 불변 클래스*/
+  ```java
+  /*코드 17-2 생성자 대신 정적 팩터리를 사용한 불변 클래스*/
     public class Complex{
       private final double re;
       private final double im;
@@ -201,7 +198,13 @@ public final class Complex{
       
       ... 
     }
-    ```
+
+    public class ComplexExample{
+      Complex complex = Complex.valueOf(1, 0.222);
+    }
+  ```
+
+  - private 또는 package-private 생성자 + 정적 팩터리
 
   - 확장이 가능하다. 다수의 package-private 구현 클래스를 만들 수 있다.
 
