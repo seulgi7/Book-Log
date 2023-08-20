@@ -21,8 +21,9 @@
       ```java
       Set<Lark> exaltation = new HashSet();
       ```
+      
 
-      - ![iem27_warning](/Users/jangseulgi/Desktop/dev/workspace/study/java/effectiveJava/image/iem27_warning.png)
+      ![iem27_warning](https://github.com/seulgi7/Book-Log/blob/cbdb7921da603acfb440c0fbb680ebd698010384/Java/Effective%20Java%203E/iamge/iem27_warning.png)
 
     - 경고를 제거한 코드
 
@@ -55,7 +56,7 @@
 
     - before
 
-      ![item27_27-1_before](/Users/jangseulgi/Desktop/dev/workspace/study/java/effectiveJava/image/item27_27-1_before.png)
+      ![item27_27-1_before](https://github.com/seulgi7/Book-Log/blob/cbdb7921da603acfb440c0fbb680ebd698010384/Java/Effective%20Java%203E/iamge/item27_27-1_before.png)
 
     - after
 
