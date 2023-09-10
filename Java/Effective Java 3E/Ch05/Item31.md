@@ -10,9 +10,9 @@
 > - 불공변 : A가 B의 하위 타입일때, T<A>가  T<B>의 하위 타입이 아니면  T는 불공변.
 
 - 매개변수화 타입은 불공변이다. (아이템28)
--  Type1과 Type2가 있을 때, List<Type1>은 List<Type2>의 하위타입도 상위 타입도 아니다.
-  - List<Object>에는 어떤 객체든 넣을 수 있지만 List<String>에는 문자열만 넣을 수 있음.
-  - 즉,  List<String> 는 List<Object>가 하는 일을 제대로 수행하지 못하니 하위 타입이 될 수 없다.
+-  Type1과 Type2가 있을 때, List<Type1<Type1>>은 List<Type2<Type2>> 의 하위타입도 상위 타입도 아니다.
+  - List<Object<Object>>에는 어떤 객체든 넣을 수 있지만 List<String<String>>에는 문자열만 넣을 수 있음.
+  - 즉,  List<String<String>> 는 List<Object<Object>>가 하는 일을 제대로 수행하지 못하니 하위 타입이 될 수 없다.
 - 때론 불공변 방식보다 유연한 방식이 필요할 때가 있다면? **한정적 와일드카드 타입**이라는특별한 매개변수화 타입이 유용하게 사용될 수 있음.
 
 
@@ -23,7 +23,9 @@
 
 > [ 와일드카드 ]
 >
-> - <?>
+> ```
+> <?>
+> ```
 > - 정해지지 않은 unknown type이기 때문에  Collection<?>로 선언함으로써 모든 타입에 대해 호출이 가능해짐.
 
 ### 와일드 카드 타입을 사용하지 않은 pusthAll메서드
@@ -118,7 +120,7 @@ public void popAll(Collection<? super E> dst) {
 
 > - Producer-Extends
 >
-> - Consumer-Super)
+> - Consumer-Super
 
 ****
 
@@ -152,69 +154,8 @@ Set<Number> numbers = union(integers, doubles);
 - 와일드카드가 제대로 사용된다면 사용자는 와일드 카드가 사용된지도 모른다. 만약 사용자가 와일드카드 타입을 신경써야 한다면 그 API는 문제가 있을 수 있다.
 - 참고로, 만약 자바 버전이 7버전이라면 위 클라이언트 코드에서 명시적 타입 인수를 사용해주어야 한다. 자바 8이전까지는 타입 추론 능력이 충분하지 못해 반환타입을 명시해야 했다.
 
-**[자바 7까지는 명시적 타입 인수를 사용해야 했다.]**
 
-```java
-Set<Number> numbers = Union.<Number>union(integers,doubles);
-```
 
-> 매개변수와 인수의 차이
->
-> - 매개변수는 메서드 선언에 정의한 변수이고, 인수는 메서드 호출 시 넘기는 실젯값이다
->
-> - 매개변수와 인수 예시
->
->   ```java
->   void add(int value) {...}
->   add(10);
->   ```
->
->   - 위 코드에서 value는 매개변수이고 10은 인수다.
->
-> - 제네릭 매개변수와 인수 예시
->
->   ```java
->   class Set<T> {...}
->   Set<Integer> = {...}
->   ```
->
->   - 여기서 T는 타입 매개변수가 되고, Integer는 타입 인수가 된다.
-
-## 타입매개변수와 와일드카드 모두 사용해도 괜찮을 경우
-
-> 기본 규칙: **메서드 선언에 타입 매개변수가 한번만 나오면 와일드 카드로 대체하라**
-
-**[swap 메서드의 두 가지 선언 - 비한정적 타입 매개변수, 비한정적 와일드 카드]**
-
-```java
-public static <E> void swap(<List<E> list, int i, int j);
-public static void swap(List<?> list, int i, int j);
-```
-
-이때, 한정적 타입 매개변수라면 한정적 와일드카드로 비한정적 타입 매개변수라면 비한정적 와일드카드로 변경하면 된다.
-
-**[직관적으로 구현한 코드 - 문제발생]**
-
-```java
-public static void swap(List<?> list, int i, int j){
-	list.set(i, list.set(j, list.get(i));
-}
-```
-
-이 코드는 `list.get(i)`로 꺼낸 코드를 다시 리스트에 넣을 수 없다는 오류를 발생시킨다. 이 오류는 제네릭 메서드인 `private` 도우미 메서드를 작성함으로 해결할 수 있다.
-
-```java
-public static void swap(List<?> list, int i, int j){
-	swapHelper(list, i, j);
-}
-
-// 와일드카드 타입을 실제 타입으로 바꿔주는 private 도우미 메서드
-private static <E> void swapHelper(List<E> list, int i, int j){
-	list.set(i, list.set(j, list.get(i));
-}
-```
-
-`swapHelper` 메서드는 `List<E>`에서 꺼낸 타입이 항상 `E`이고 `E`타입의 값은 해당 `List`에 다시 넣어도 안전함을 알고 있다. 
 
 ### 정리
 
