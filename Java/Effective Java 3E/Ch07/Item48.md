@@ -63,3 +63,32 @@ public class ParallelMersennePrimes {
     - anyMatch, allMatch, noneMatch처럼 조건에 맞으면 바로 반환되는 메서드도 병렬화에 적합하다.
 - 가변 축소(mutable reduction)를 수행하는 Stream의 collect 메서드는 병렬화에 적합하지 않다.
     - 컬렉션들을 합치는 부담이 크기 때문이다.
+
+## HOW?
+Stream 명세는 이때 사용되는 함수 객체에 관한 엄중한 규약을 정의해놨다.
+
+예컨대 Stream의 reduce 연산에 건네지는 accumulator(누적기)와 combiner(결합기) 함수는 반드시 결합법칙을 만족하고(associative), 간섭받지 않고(non-interfering), 상태를 갖지 않아야(stateless) 한다.
+조건이 잘 갖춰지면 parallel 메서드 호출 하나로 거의 프로세서 코어 수에 비례하는 성능 향상을 만끽할 수 있다.
+
+``` java
+static long pi(long n) {
+    return LongStream.rangeClosed(2, n)
+        .mapToObj(BigInteger::valueOf)
+        .filter(i -> i.isProbablePrime(50))
+        .count();
+}
+//위 코드는 π(n), 즉 n보다 작거나 같은 소수의 개수를 계산하는 함수다.
+static long pi(long n) {
+    return LongStream.rangeClosed(2, n)
+        .parallel()
+        .mapToObj(BigInteger::valueOf)
+        .filter(i -> i.isProbablePrime(50))
+        .count();
+}
+```
+(저자 기준, 쿼드 코어) 위의 코드로 π(10^8)을 계산하는 31초, 아래 코드로 9.2초가 걸렸다.
+무작위 수들로 이뤄진 스트림을 병렬화하려거든 ThreadLocalRandom(혹은 구식인 Random)보다는 SplittableRandom 인스턴스를 이용하자.
+
+SplittableRandom은 정확히 이럴 때 쓰고자 설계된 것이라 병렬화하면 성능이 선형으로 증가한다.
+ThreadLocalRandom은 단일 스레드에서 쓰고자 만들어졌다.
+Random은 모든 연산을 동기화하기 때문에 병렬 처리하면 성능이 최악일 것이다.
