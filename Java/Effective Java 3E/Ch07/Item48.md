@@ -17,6 +17,7 @@ parallel 메서드만 한 번 호출하면 파이프라인을 병렬 실행할 �
 
 ## 동시성 프로그래밍 주의점
 ### 1. 스트림 병렬화를 사용하면 안되는 경우
+```java
 public class ParallelMersennePrimes {
     public static void main(String[] args) {
         primes().map(p -> TWO.pow(p.intValueExact()).subtract(ONE))
@@ -30,6 +31,7 @@ public class ParallelMersennePrimes {
         return Stream.iterate(TWO, BigInteger::nextProbablePrime);
     }
 }
+```
 무작정 성능을 향상시키기 위해 parallel() 를 사용하면, 위와 같이 아무것도 출력하지 못하면서 CPU는 90% 나 잡아먹는 상태가 무한히 계속되는 문제가 발생할 수 있다. 스트림 라이브러리가 이 파이프라인을 병렬화하는 방법을 찾아내지 못했기 때문이다.
 
 🔖 파이프라인 병렬화로 성능 개선을 할 수 없는 경우
@@ -66,12 +68,14 @@ https://stackoverflow.com/questions/60095513/why-is-list-parallelstream-foreach-
 기본 타입의 배열과 같은 경우, 데이터 자체가 메모리에 연속해서 저장되기 때문에, 참조 지역성 중에서도 공간 지역성이 좋아 Cache Hit Rate 이 가장 높다.
 
 ArrayList 나 Hash 자료구조 또한 내부적으로 배열(해시 테이블)을 사용하기 때문에, 참조 지역성이 높다.
+```java
 
 public class HashMap<K,V> extends AbstractMap<K,V>
     implements Map<K,V>, Cloneable, Serializable {
     
     transient Node<K,V>[] table;
 }
+```
 결론적으로, 다량의 데이터를 처리하는 벌크 연산을 병렬화 할 때는 반드시 참조 지역성을 고려하도록 하자.
 
 ##  종단 연산과 병렬화
