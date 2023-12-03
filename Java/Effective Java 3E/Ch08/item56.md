@@ -1,6 +1,12 @@
 쓸모 있는 API에는 잘 작성된 문서도 필요하다.
 자바에서는 자바독(Javadoc)이라는 유틸리티를 지원하고 있는데, 소스코드 파일에서 문서화 주석이라는 특수한 형태로 기술된 설명을 추려 API 문서로 변환해준다.
 
+## Javadoc API
+-  API 문서에 대한 코멘트의 효율성을 높여주는 툴이다.
+<img width="545" alt="image" src="https://img1.daumcdn.net/thumb/R1280x0/?scode=mtistory2&fname=https%3A%2F%2Ft1.daumcdn.net%2Fcfile%2Ftistory%2F2615E533577C5B0C01">
+
+
+
 ## 문서화 주석을 다는 방법
 
 1) 공개된 모든 클래스, 인터페이스, 메서드, 필드 선언에 문서화 주석을 달아야 한다. 단, 기본 생성자에는 주석을 달 방법이 없으니 공개 클래스는 절대 기본 생성자를 사용하면 안된다.
