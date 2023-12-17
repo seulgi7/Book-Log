@@ -7,7 +7,7 @@
   -  String 대신 StringBuilder의 append를 사용하자. 
   -  StringBuilder는 문자열 개수에 따라 선형으로 증가한다.
 
-
+'''
 // 문자열 연결 사용
 public String statement() {
 	String result = "";
@@ -23,6 +23,7 @@ public String statement2() {
     	b.append(lineForItem(i));
 	return b.toString();
 }
+'''
 
 statement와 statement2의 수행시간을 비교?
 - 저자 컴퓨터 기준 statement2가 6.5배나 빨랐다고 한다.
